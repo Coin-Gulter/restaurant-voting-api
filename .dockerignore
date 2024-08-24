@@ -1,0 +1,9 @@
+.pytest_cache
+.env
+.gitignore
+.git
+__pycache__
+pytest.ini
+README.md
+docker-compose.yaml
+test/
