@@ -36,7 +36,6 @@ Also could be deployed by Docker (docker-compose) or using CMD.
 
 4. **Set up the database:**
    ```bash
-   python manage.py makemigrations
    python manage.py migrate
    ```
 
