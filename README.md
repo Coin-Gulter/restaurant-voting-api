@@ -15,27 +15,28 @@ Also could be deployed by Docker (docker-compose) or using CMD.
 - **Menu Management:** Owners can upload menus for their restaurants and make them public or private.
 - **Voting:** Users can vote for their preferred menu of the day. Results can be aggregated and viewed.
 
-## Installation
+## Installation (without docker)
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/yourusername/restaurant-voting-api.git
+   git clone https://github.com/Coin-Gulter/restaurant-voting-api.git
    cd restaurant-voting-api
    ```
 
-2. **Create and activate a virtual environment:**
-   ```bash
-   python3 -m venv venv
-   source venv/bin/activate
-   ```
-
-3. **Install the required packages:**
+2. **Install the required packages:**
    ```bash
    pip install -r requirements.txt
    ```
 
+3. **Write your DB parameters into ".env" file:**
+    Parameters:
+        - IMAGE_NAME = coingualter/inforce_lunch:1.0
+        - PORT = 5000
+    needed only when you work with docker (docker-compose)
+
 4. **Set up the database:**
    ```bash
+   python manage.py makemigrations
    python manage.py migrate
    ```
 
@@ -49,12 +50,29 @@ Also could be deployed by Docker (docker-compose) or using CMD.
    python manage.py runserver
    ```
 
+## Installation (with docker)
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/Coin-Gulter/restaurant-voting-api.git
+   cd restaurant-voting-api
+   ```
+
+2. **Write your server parameters into ".env" file:**
+    Where parameter "PORT" means port to connect to the api server.
+    Better not to uses DB parameters because they used to connect to the docker postgresql DB.
+
+5. **Run the development docker compose server:**
+   ```bash
+   docker compose -f docker-compose.yaml up -d
+   ```
+
 ## Endpoints
 
 ### Authentication
 
 1. **Register User**
-   - **URL:** `/auth/register/`
+   - **URL:** `/authentication/register/`
    - **Method:** `POST`
    - **Description:** Register a new user.
    - **Request Body:**
@@ -68,7 +86,7 @@ Also could be deployed by Docker (docker-compose) or using CMD.
      ```
 
 2. **Obtain JWT Token**
-   - **URL:** `/auth/token/`
+   - **URL:** `/authentication/token/`
    - **Method:** `POST`
    - **Description:** Obtain JWT access and refresh tokens.
    - **Request Body:**
@@ -80,7 +98,7 @@ Also could be deployed by Docker (docker-compose) or using CMD.
      ```
 
 3. **Refresh JWT Token**
-   - **URL:** `/auth/token/refresh/`
+   - **URL:** `/authentication/token/refresh/`
    - **Method:** `POST`
    - **Description:** Refresh the JWT access token using the refresh token.
    - **Request Body:**
@@ -91,7 +109,7 @@ Also could be deployed by Docker (docker-compose) or using CMD.
      ```
 
 4. **Get User Details**
-   - **URL:** `/auth/getuser/`
+   - **URL:** `/authentication/getuser/`
    - **Method:** `GET`
    - **Description:** Retrieve authenticated user's details.
    - **Headers:**
@@ -170,7 +188,7 @@ Also could be deployed by Docker (docker-compose) or using CMD.
 
 ## Running Tests
 
-To run tests using PyTest, use the following command:
+To run tests using PyTest, use the following command in the main project directory:
 
 ```bash
 pytest
